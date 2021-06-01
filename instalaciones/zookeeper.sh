@@ -1,6 +1,6 @@
 #!/bin/bash
 
-zookeepers=server
+zookeepers=zookeeper
 export PATH=$PATH:/home/ubuntu/environment/kafka/bin
 
 function start(){

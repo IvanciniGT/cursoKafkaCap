@@ -4,14 +4,16 @@ brokers=server
 export PATH=$PATH:/home/ubuntu/environment/kafka/bin
 
 function start(){
-    for BROKER in "$1"
+    for BROKER in $1
     do 
-        kafka-server-start.sh -daemon ~/environment/curso/instalaciones/kafka/$BROKER.properties
+        echo arrancando broker $BROKER
+        kafka-server-start.sh -daemon ~/environment/curso/instalaciones/kafka/$BROKER.properties 
     done
 }
 function stop(){
-    for BROKER in "$1"
+    for BROKER in $1
     do 
+        echo parando broker $BROKER
         kafka-server-stop.sh -daemon ~/environment/curso/instalaciones/kafka/$BROKER.properties
     done
 }
@@ -37,4 +39,4 @@ do
     shift
 done
 
-$TO_EXEC $brokers
+$TO_EXEC "$brokers"
