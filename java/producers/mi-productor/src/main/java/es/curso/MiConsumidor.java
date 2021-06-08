@@ -5,9 +5,12 @@ import org.apache.kafka.clients.consumer.ConsumerConfig ;
 import org.apache.kafka.clients.consumer.KafkaConsumer ;
 import org.apache.kafka.clients.consumer.ConsumerRecord ;
 import org.apache.kafka.clients.consumer.ConsumerRecords ;
+import org.apache.kafka.common.TopicPartition ;
+import org.apache.kafka.common.PartitionInfo;
+
 
 import java.util.Properties;
-import java.util.Arrays;
+import java.util.*;
 import java.time.Duration;
 import java.io.IOException;
 
@@ -36,7 +39,14 @@ public class MiConsumidor  {
         Consumer<String, String> consumer = new KafkaConsumer<>(props);
 
         // Subscribirnos a uno a varios TOPICS
-        consumer.subscribe(Arrays.asList(args[0]));
+        Collection<TopicPartition> partitions=new ArrayList<>();
+        for (PartitionInfo partition:consumer.partitionsFor(args[0])){
+            if(partition.partition()==0){
+                partitions.add(new TopicPartition(args[0], partition.partition()));
+            }
+        }
+        consumer.assign(partitions);
+        //consumer.subscribe(Arrays.asList(args[0]));
 
         // Hasta el infinito y más allá !
         while(leer){
@@ -45,7 +55,7 @@ public class MiConsumidor  {
             // Procesar cada mensaje del listado de mensajes
             for (ConsumerRecord<String, String> record : records){
                 // Procesaría el mensaje. Lógica de negocio.
-                System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
+                System.out.printf("partition=%d ,offset = %d, key = %s, value = %s%n", record.partition(), record.offset(), record.key(), record.value());
             }
             consumer.commitSync();
         }        
