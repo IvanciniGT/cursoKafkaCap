@@ -7,7 +7,7 @@ function start(){
     for BROKER in $1
     do 
         echo arrancando broker $BROKER
-        kafka-server-start.sh -daemon ~/environment/curso/instalaciones/kafka/$BROKER.properties 
+        kafka-server-start.sh -daemon ~/environment/curso/instalaciones/kafka/$BROKER.properties
     done
 }
 function stop(){
