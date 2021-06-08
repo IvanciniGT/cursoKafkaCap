@@ -61,12 +61,6 @@ Select all that applies (select THREE)
 - min.insync.replicas only matters if acks=all
 - acks is a producer setting
 
-## Explicación: 
-
-acks is a producer setting
-min.insync.replicas is a topic or broker setting and is only effective when acks=all
-
-
 # Pregunta 8:
  
 Which of the following errors are retriable from a producer perspective? (select two)
