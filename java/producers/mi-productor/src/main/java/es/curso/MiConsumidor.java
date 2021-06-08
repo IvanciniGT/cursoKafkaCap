@@ -9,6 +9,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords ;
 import java.util.Properties;
 import java.util.Arrays;
 import java.time.Duration;
+import java.io.IOException;
 
 public class MiConsumidor  {
     
