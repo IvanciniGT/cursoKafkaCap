@@ -85,7 +85,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
-          <mainClass>es.curso.MiKafkaStream</mainClass>
+          <mainClass>es.curso.MiConsumidor</mainClass>
         </configuration>
       </plugin>
     </plugins>

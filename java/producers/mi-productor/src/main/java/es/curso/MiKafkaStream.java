@@ -41,8 +41,6 @@ public class MiKafkaStream{
         streamsConfiguration.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
 
-
-
         // Creación de Stream
         StreamsBuilder builder = new StreamsBuilder();
         KStream<String, String> textLines = builder.stream(inputTopic);
@@ -55,13 +53,13 @@ public class MiKafkaStream{
                 .groupBy((key, word) -> word)                                              // Declarando que quiero esa operación
                 .count();                                                                  // Decir que me haga esa operación y todas las anteriores
 
-        //wordCounts.foreach((word, count) -> System.out.println("word: " + word + " -> " + count));
+        wordCounts.toStream().foreach((word, count) -> System.out.println("word: " + word + " -> " + count));
 
         // Configuramos la salida
         String outputTopic = "topic_salida";
         final Serde<String> stringSerde = Serdes.String();
         final Serde<Long> longSerde = Serdes.Long();
-        //wordCounts.toStream().to(stringSerde, longSerde, outputTopic);
+        //wordCounts.to(stringSerde, longSerde, outputTopic);
         wordCounts.toStream().to(outputTopic, Produced.with(stringSerde, longSerde).as("output"));
         
         // Arrancamos
@@ -69,8 +67,10 @@ public class MiKafkaStream{
         streams.start();
 
         // Controlar cuando parar mediante un listener: setStateListener(KafkaStreams.StateListener listener)
-
-        Thread.sleep(30000);
+        try{
+            while(true)
+                Thread.sleep(30000);
+        }catch(Exception e){}
         streams.close();
     }
 }
