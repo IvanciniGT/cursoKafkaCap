@@ -80,7 +80,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
-          <mainClass>es.curso.MiConsumidor</mainClass>
+          <mainClass>es.curso.Funcional</mainClass>
         </configuration>
       </plugin>
     </plugins>
