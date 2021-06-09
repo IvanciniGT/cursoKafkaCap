@@ -16,7 +16,7 @@ public class Funcional{
         // Función Lambda
             // Funciones anónimas
         
-        Function<String,String> mifuncion=(value) -> valor.toUpperCase(); 
+//        Function<String,String> mifuncion=(value) -> valor.toUpperCase(); 
     }
     public static void personaliza(Consumer<String> funcionSuministrada){
         funcionSuministrada.accept("IVAN");

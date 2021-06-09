@@ -6,8 +6,9 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.KStreamBuilder;
+import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.KTable;
+import org.apache.kafka.streams.kstream.Produced;
 
 import java.util.Arrays;
 import java.util.Properties;
@@ -26,7 +27,7 @@ public class MiKafkaStream{
 
     private static String bootstrapServers = "localhost:9092";
     private static String TMP_DIR="/tmp";
-    public static void main() throws Exception {
+    public static void main(String[] args) throws Exception {
 
         String inputTopic = args[0];
 
@@ -39,8 +40,11 @@ public class MiKafkaStream{
         streamsConfiguration.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, 1000);
         streamsConfiguration.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
+
+
+
         // Creación de Stream
-        KStreamBuilder builder = new KStreamBuilder();
+        StreamsBuilder builder = new StreamsBuilder();
         KStream<String, String> textLines = builder.stream(inputTopic);
         Pattern pattern = Pattern.compile("\\W+", Pattern.UNICODE_CHARACTER_CLASS);
 
@@ -57,10 +61,11 @@ public class MiKafkaStream{
         String outputTopic = "topic_salida";
         final Serde<String> stringSerde = Serdes.String();
         final Serde<Long> longSerde = Serdes.Long();
-        wordCounts.to(stringSerde, longSerde, outputTopic);
-
+        //wordCounts.toStream().to(stringSerde, longSerde, outputTopic);
+        wordCounts.toStream().to(outputTopic, Produced.with(stringSerde, longSerde).as("output"));
+        
         // Arrancamos
-        KafkaStreams streams = new KafkaStreams(builder, streamsConfiguration);
+        KafkaStreams streams = new KafkaStreams(builder.build(), streamsConfiguration);
         streams.start();
 
         // Controlar cuando parar mediante un listener: setStateListener(KafkaStreams.StateListener listener)
