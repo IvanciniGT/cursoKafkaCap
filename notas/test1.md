@@ -39,6 +39,7 @@ The rule "same key goes to the same partition" is true unless...
 
 # Pregunta 6:
 When is the onCompletion() method called?
+
     private class ProducerCallback implements Callback {
             @Override
             public void onCompletion(RecordMetadata recordMetadata, Exception e) {
