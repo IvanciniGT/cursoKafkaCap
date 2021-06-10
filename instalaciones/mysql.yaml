@@ -12,5 +12,8 @@ services:
       MYSQL_USER: usuario
       MYSQL_PASSWORD: password
     ports:
-      - 3306:3306
+      - 3307:3306
 
+# docker exec -it -u root confluent_kafka-3_1 connect-standalone \
+#/compartida/connect.properties /compartida/fichero-entradas.properties
+# Además tendria que tener el contenedor acceso a  : 

@@ -64,6 +64,7 @@ services:
      - 19092:19092
    volumes:
     - /home/ubuntu/environment/datos/kafka1:/var/lib/kafka/data
+    - /home/ubuntu/environment/curso/instalaciones/connect:/compartida
    extra_hosts:
      - moby:127.0.0.1
  
@@ -82,6 +83,7 @@ services:
      - 29092:29092
    volumes:
     - /home/ubuntu/environment/datos/kafka2:/var/lib/kafka/data
+    - /home/ubuntu/environment/curso/instalaciones/connect:/compartida
    extra_hosts:
      - moby:127.0.0.1
  
@@ -98,6 +100,7 @@ services:
      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:39092
    volumes:
     - /home/ubuntu/environment/datos/kafka3:/var/lib/kafka/data
+    - /home/ubuntu/environment/curso/instalaciones/connect:/compartida
    ports:
      - 39092:39092 
    extra_hosts:

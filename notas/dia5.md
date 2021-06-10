@@ -91,3 +91,22 @@ Kafka es Opensource !!!
     Apache Kafka SI    < FileSource   FileSink
     Confluent tiene una versión OS  <<<<  SQL, HDFS
               tiene otras que no.
+              
+              
+KAFKA:
+    REST <<<< Interactuar con  KAFKA
+    
+    Apache KAFKA la tiene solo para Connector, Stream
+    
+ConfluentKafka si tiene una interfaz REST PROPIA para KAFKA
+
+
+------
+connect-standalone
+
+Levanta un servicio de Connect WORKER
+    EJECUTA AHI EN TU DENTRO DE TI:
+        DOS conector que te estoy configurando
+            Entradas
+            Salidas
+        18083 <<< REST 
